@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    
+<head>
+  <meta charset="UTF-8">
+  <title>CALCULE SEU IMC</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+
+    
+    .secao {
+      background-color: white;
+      color: black;
+      padding: 20px;
+      margin: 20px auto;
+      border-radius: 10px;
+      max-width: 600px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
+
+    h1 {
+      color: #fbfbfb;
+    }
+
+    h2 {
+      color: #333;
+    }
+
+    
+  </style>
+  <table id="meuTabela">
+         <thead>
+             
+         </thead>
+         <tbody>
+<div class="secao">
+    
+<select>
+    <option>Mulher</option>
+    <option>Homem</option> 
+    <option>Nome do aluno(a)</option>
+<p>Nome do aluno</p>
+    <h2>Calculadora de IMC</h2>
+    
+    <input type="name" id="name" pattern="nome do aluno" step="0.1"> 
+    <input type="number" id="peso" placeholder="Peso em kg" step="0.1">
+    <input type="number" id="altura" placeholder="Altura em metros" step="0.01">
+    <button onclick="calcularIMC()">Calcular</button>
+    <div id="resultado"></div>
+  </div>
+
+  <script>
+    function calcularIMC() {
+      const peso = parseFloat(document.getElementById("peso").value);
+      const altura = parseFloat(document.getElementById("altura").value);
+      const resultado = document.getElementById("resultado");
+
+      if (!peso || !altura || altura <= 0) {
+        resultado.innerHTML = "Por favor, preencha os campos corretamente.";
+        return;
+      }
+
+      const imc = peso / (altura * altura);
+      let classificacao = "";
+
+      if (imc < 18.5) {
+        classificacao = "Abaixo do peso";
+      } else if (imc < 24.9) {
+        classificacao = "Peso normal";
+      } else if (imc < 29.9) {
+        classificacao = "Sobrepeso";
+      } else if (imc < 34.9) {
+        classificacao = "Obesidade grau 1";
+      } else if (imc < 39.9) {
+        classificacao = "Obesidade grau 2";
+      } else {
+        classificacao = "Obesidade grau 3";
+      }
+
+      resultado.innerHTML = `Seu IMC é <strong>${imc.toFixed(2)}</strong> (${classificacao})`;
+    }// Adiciona os dados na lista
+      dadosIMC.push({
+        Nome: name,
+        Peso: peso,
+        Altura: altura,
+        IMC: resultado.innerHTML
+      })
+function exportarParaExcel() {
+      if (dadosIMC.length === 0) {
+        alert("Nenhum dado para exportar.");
+        return;
+      }
+
+      // Converte os dados para uma planilha
+      const ws = XLSX.utils.json_to_sheet(dadosIMC);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "IMC");
+
+      // Salva o arquivo
+      XLSX.writeFile(wb, "dados_imc.xlsx");
+    }
+  </script>
+</body>
+  </script></select>
+         </tbody>
+     </table>
+
+  <head>CALCULADORA IMC</head>
+
+<body>
+   
+    
+
+
+  <div class="secao">
+<select>
+  <option>Homem</option>
+  <option>Mulher</option>
+    <h2>Calculadora de Gordura Corporal</h2>
+    
+    <label for="sexo">Sexo:</label>
+    <select id="sexo">
+      <option value="homem">Homem</option>
+      <option value="mulher">Mulher</option>
+    </select>
+
+    <label for="peso">Peso (kg): <small>(Opcional)</small></label>
+    <input type="number" id="peso" placeholder="Ex: 70" step="0.1" min="0" />
+
+    <label for="altura">Altura (cm):</label>
+    <input type="number" id="altura" placeholder="Ex: 175" step="0.1" min="0" />
+
+    <label for="pescoco">Pescoço (cm):</label>
+    <input type="number" id="pescoco" placeholder="Ex: 40" step="0.1" min="0" />
+
+    <label for="cintura">Cintura (cm):</label>
+    <input type="number" id="cintura" placeholder="Ex: 90" step="0.1" min="0" />
+
+    <label id="labelQuadril" for="quadril" style="display:none;">Quadril (cm):</label>
+    <input type="number" id="quadril" placeholder="Ex: 95" step="0.1" min="0" style="display:none;"/>
+
+    <label id="labelTríceps:" for="Tríceps:" style="display:none;">Tríceps: (cm):</label>
+    <input type="number" id="Tríceps:" placeholder="Ex: 95" step="0.1" min="0" style="display:none;"/>
+
+    <button onclick="calcularGordura()">Calcular</button>
+
+    <div id="resultado"></div>
+  </div>
+
+  <script>
+    const sexo = document.getElementById('sexo');
+    const quadrilLabel = document.getElementById('labelQuadril');
+    const quadrilInput = document.getElementById('quadril');
+
+    // Mostrar/ocultar campo quadril conforme sexo
+    sexo.addEventListener('change', () => {
+      if (sexo.value === 'mulher') {
+        quadrilLabel.style.display = 'block';
+        quadrilInput.style.display = 'block';
+      } else {
+        quadrilLabel.style.display = 'none';
+        quadrilInput.style.display = 'none';
+        quadrilInput.value = '';
+      }
+      document.getElementById('resultado').innerHTML = '';
+    });
+
+    function calcularGordura() {
+      const s = sexo.value;
+      const altura = parseFloat(document.getElementById('altura').value);
+      const pescoco = parseFloat(document.getElementById('pescoco').value);
+      const cintura = parseFloat(document.getElementById('cintura').value);
+      const quadril = parseFloat(document.getElementById('quadril').value);
+      const Tríceps = parseFloat(document.getElementById('Trícipes').value);
+      const resultado = document.getElementById('resultado');
+
+      if (!altura || !pescoco || !cintura || altura <= 0 || pescoco <= 0 || cintura <= 0 || Tríceps <=0) {
+        resultado.style.color = 'red';
+        resultado.innerHTML = 'Preencha todos os campos obrigatórios corretamente.';
+        return;
+      }
+      if (s === 'mulher' && (!quadril || quadril <= 0)) {
+        resultado.style.color = 'red';
+        resultado.innerHTML = 'Preencha o campo quadril corretamente.';
+        return;
+      }
+
+      // Fórmulas da Marinha dos EUA
+      // log10 = Math.log10
+      let gordura = 0;
+      if (s === 'homem') {
+        gordura = 86.010 * Math.log10(cintura - pescoco - Tríceps) - 70.041 * Math.log10(altura) + 36.76;
+      } else {
+        gordura = 163.205 * Math.log10(cintura + quadril +Tríceps- pescoco) - 97.684 * Math.log10(altura) - 78.387;
+      }
+
+      gordura = gordura.toFixed(2);
+
+      resultado.style.color = '#0f0';
+      resultado.innerHTML = `Sua gordura corporal estimada é <strong>${gordura}%</strong>.`;
+    }
+  </script></div></select>
+
+
